@@ -115,8 +115,9 @@ class WelcomePage extends StatelessWidget {
                             fontSize: 18
                           ),
                         ),
-                      ),
-                  )
+                    ),
+                  ),
+                  
                 ],
               ),
 

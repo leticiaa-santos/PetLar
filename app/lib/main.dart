@@ -1,4 +1,5 @@
 import 'package:app/login.dart';
+import 'package:app/navbar.dart';
 import 'package:app/register.dart';
 import 'package:app/welcome.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => WelcomePage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/home': (context) => Placeholder(),
+        '/home': (context) => NavBar(),
 
       },
     );
