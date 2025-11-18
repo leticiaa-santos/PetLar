@@ -41,14 +41,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffeef5ff),
+      backgroundColor: Color(0xffeef5ff),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(24, 60, 24, 40),
-              decoration: const BoxDecoration(
+              padding: EdgeInsets.fromLTRB(24, 60, 24, 40),
+              decoration: BoxDecoration(
                 color: Color(0xff3E5674),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(35),
@@ -74,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                     )
                     
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
+                  SizedBox(height: 10),
+                  Text(
                     "Faça seu login!",
                     style: TextStyle(
                       color: Colors.white,

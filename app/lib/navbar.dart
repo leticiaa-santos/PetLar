@@ -29,6 +29,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: screens.elementAt(currentIndex),
         bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem> [
