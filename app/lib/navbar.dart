@@ -4,7 +4,10 @@ import 'package:app/pets.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+
+  final int initialIndex;
+
+  const NavBar({this.initialIndex = 0, super.key});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -13,6 +16,12 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
 
   int currentIndex = 0;
+
+  @override
+  void initState(){
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
 
   void changeIndex (int index) {
     setState(() {
@@ -38,6 +47,7 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(label: "Favoritos", icon: Icon(Icons.favorite) ),
         ],
         currentIndex: currentIndex, //a posição desejada
+        selectedItemColor: Color(0xff3E5674),
         onTap: changeIndex, //função que muda o index
 
 

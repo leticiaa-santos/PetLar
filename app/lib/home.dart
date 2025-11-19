@@ -1,3 +1,4 @@
+import 'package:app/navbar.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,18 +11,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-      backgroundColor: const Color(0xffeef5ff),
+    return Scaffold(
+      backgroundColor: Color(0xffeef5ff),
       body: SingleChildScrollView(
-        
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(24, 60, 24, 40),
-              decoration: const BoxDecoration(
+              padding: EdgeInsets.fromLTRB(24, 60, 24, 40),
+              decoration: BoxDecoration(
                 color: Color(0xff3E5674),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(35),
@@ -37,7 +36,7 @@ class _HomeState extends State<Home> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.3),
+                            color: Colors.black12,
                             blurRadius: 12,
                             offset: Offset(0, 4),
                           )
@@ -60,42 +59,191 @@ class _HomeState extends State<Home> {
 
                   SizedBox(height: 10),
 
-                  //subtitulo
                   Text(
                     "Conectando corações a patinhas",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0XFFeef5ff),
-                      
+                      color: Color(0XFFeef5ff),  
                     ),
                   ),
-                  
-               
-
                 ]
               ),
-
-              
             ),
 
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
 
-            Text(
-              "Sobre nós",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0XFF3E5674),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sobre nós",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0XFF3E5674),
+                    ),
+                  ),
 
+                  SizedBox(height: 20),
+
+                  Text(
+                    "O PetLar é mais do que um app de adoção – é uma missão de amor! Ajudamos cães e gatos a encontrarem lares cheios de carinho e famílias a ganharem companheiros fiéis. Cada adoção é uma história de esperança!",
+                    style: TextStyle(
+                      fontSize: 16,
+                      
+                      color: Color(0XFF3E5674),
+                    ),
+                  ),
+
+                  SizedBox(height: 40),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          color: Color(0xffE7EAED),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(Icons.favorite, color: Color(0xff3E5674), size: 40,),
+                            Text("500+", style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff3E5674),
+                              fontSize: 18,
+                              ),
+                            ),
+                            Text("Adoções", style: TextStyle(color: Color(0xff3E5674)),)
+                          ]
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          color: Color(0xffD6DFEB),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(Icons.groups_2, color: Color(0xff3E5674), size: 40,),
+                            Text("1000+", style: TextStyle(
+                              color: Color(0xff3E5674),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              ),
+                            ),
+                            Text("Famílias", style: TextStyle(color: Color(0xff3E5674)),)
+                          ]
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          color: Color(0xffE2E8F0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(Icons.home_filled, color: Color(0xff3E5674), size: 40,),
+                            Text("50+", style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color(0xff3E5674),
+                              ),
+                            ),
+                            Text("Parceiros", style: TextStyle(color: Color(0xff3E5674)),)
+                          ]
+                        ),
+                      )
+                    ],
+                  ),
+
+                  SizedBox(height: 20),
+
+                  Row(
+                    children: [
+                      Text(
+                        "Pets Disponíveis",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0XFF3E5674),
+                        ),
+                      ),
+
+                      SizedBox(width: 60),
+
+                      ElevatedButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
+                      }, 
+                        child: Text(
+                          "Ver todos"
+                        ), 
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 20),
+
+                  /* Aqui vão os cards dos animais puxados da api */
+
+
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    margin: EdgeInsets.all(10),
+                    
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    decoration: BoxDecoration(
+                      color: Color(0xff3E5674),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Pronto para adotar?",
+                          style: TextStyle(
+                            color: Color(0xfffafafa),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+
+                        SizedBox(height: 20),
+                        
+                        Text(
+                          "Navegue por nossos pets disponíveis e encontre seu novo melhor amigo!",
+                          style: TextStyle(
+                            color: Color(0xfffafafa)
+                          ),
+                        ),
+                        
+                        SizedBox(height: 20),
+                        
+                        ElevatedButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
+                        
+                      }, 
+                        child: Text(
+                          "Explorar pets"
+                        ), 
+                      ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
-          ]
+          ],
         ),
       ),
-    ),
-    
-    
     );
-    
   }
 }

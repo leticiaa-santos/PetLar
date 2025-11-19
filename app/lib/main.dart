@@ -1,4 +1,3 @@
-import 'package:app/home.dart';
 import 'package:app/login.dart';
 import 'package:app/navbar.dart';
 import 'package:app/register.dart';
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => NavBar(),
+        '/': (context) => WelcomePage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => NavBar(),
