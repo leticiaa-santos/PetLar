@@ -43,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     
                     style: TextStyle(
-                      color: Color(0xFFeef5ff),
+                      color: Color(0xFFfefefe),
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
@@ -57,7 +57,7 @@ class WelcomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0XFFeef5ff),
+                      color: Color(0XFFfefefe),
                     ),
                   ),
 
@@ -71,7 +71,7 @@ class WelcomePage extends StatelessWidget {
                         Navigator.pushNamed(context, "/login");
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFeef5ff),
+                        backgroundColor: Color(0xFFfefefe),
                         foregroundColor: Color(0xFF3E5674),
                         padding: EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -100,7 +100,7 @@ class WelcomePage extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(0XFFeef5ff),
+                        backgroundColor: Color(0XFFfefefe),
                         foregroundColor: Color(0XFF3E5674),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

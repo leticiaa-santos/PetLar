@@ -49,6 +49,7 @@ class _NavBarState extends State<NavBar> {
         currentIndex: currentIndex, //a posição desejada
         selectedItemColor: Color(0xff3E5674),
         onTap: changeIndex, //função que muda o index
+        backgroundColor: Color(0xffffffff),
 
 
         ),

@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffeef5ff),
+      backgroundColor: Color(0xfffefefe),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
               margin: EdgeInsets.symmetric(horizontal: 24),
               padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xffF0F2F5),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
@@ -241,12 +241,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return InputDecoration(
       hintText: placeholder,
       filled: true,
-      fillColor: Colors.white,
+      fillColor: Color(0xffF0F2F5),
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.white),
+        borderSide: const BorderSide(color: Color(0xffF0F2F5)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),

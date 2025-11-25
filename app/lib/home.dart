@@ -1,5 +1,8 @@
+import 'package:app/modeloCard.dart';
 import 'package:app/navbar.dart';
+import 'package:app/service_api.dart';
 import 'package:flutter/material.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,10 +12,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  List<CardModelo> homePets = [];
+
+@override
+void initState() {
+  super.initState();
+  loadHomePets();
+}
+
+Future<void> loadHomePets() async {
+  final all = await Pets.getAllPets();
+  setState(() {
+    homePets = all.take(6).toList(); // só alguns
+  });
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffeef5ff),
+      backgroundColor: Color(0xfffefefe),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,21 +187,26 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 20),
 
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "Pets Disponíveis",
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color(0XFF3E5674),
                         ),
                       ),
 
-                      SizedBox(width: 60),
-
                       ElevatedButton(onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
                       }, 
+
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xfffefefe),
+                        foregroundColor: Color(0xff3E5674),
+                        shadowColor: Colors.transparent,
+                      ),
                         child: Text(
                           "Ver todos"
                         ), 
@@ -193,11 +217,11 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 20),
 
                   /* Aqui vão os cards dos animais puxados da api */
-
+                  
 
                   Container(
                     padding: EdgeInsets.all(16),
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(20),
                     
                     width: MediaQuery.of(context).size.width * 0.85,
                     decoration: BoxDecoration(
@@ -205,7 +229,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           "Pronto para adotar?",
@@ -230,7 +254,12 @@ class _HomeState extends State<Home> {
                         ElevatedButton(onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
                         
-                      }, 
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xfffefefe),
+                        foregroundColor: Color(0xff3E5674),
+                        minimumSize: Size(600, 40)
+                      ),
                         child: Text(
                           "Explorar pets"
                         ), 
