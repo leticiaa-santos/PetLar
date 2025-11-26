@@ -1,1 +1,10 @@
+TheDogAPI:
+
 live_a3felFHs0wuZ7yvwJIS6Cw7UxUyI0mAxFrVUigpyi8Bm6sR5HH3tUegMo9bi4PAg
+
+TheCatApi:
+
+live_pvwqPkabN0F0AFETU9KOlJmt1A6zCGRhcDvpWH6SshXUekYt6ZRk6RVKAvlOUiBj
+
+
+77808

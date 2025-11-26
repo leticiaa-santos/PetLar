@@ -18,12 +18,12 @@ factory CardModelo.fromDogApi(Map data) {
       id: data["id"] ?? "",
       name: data["breeds"] != null && data["breeds"].length > 0
           ? data["breeds"][0]["name"]
-          : "Dog sem nome",
+          : "Cachorro sem nome",
       breed: data["breeds"] != null && data["breeds"].length > 0
           ? data["breeds"][0]["breed_group"] ?? "Sem raça"
           : "Sem raça",
       image: data["url"],
-      type: "dog",
+      type: "Cachorro",
     );
   }
 
@@ -32,12 +32,12 @@ factory CardModelo.fromDogApi(Map data) {
       id: data["id"] ?? "",
       name: data["breeds"] != null && data["breeds"].length > 0
           ? data["breeds"][0]["name"]
-          : "Cat sem nome",
+          : "Gato sem nome",
       breed: data["breeds"] != null && data["breeds"].length > 0
           ? data["breeds"][0]["origin"] ?? "Sem origem"
           : "Sem origem",
       image: data["url"],
-      type: "cat",
+      type: "Gato",
     );
   }
 }

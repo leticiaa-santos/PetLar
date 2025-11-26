@@ -1,3 +1,4 @@
+import 'package:app/card.dart';
 import 'package:app/modeloCard.dart';
 import 'package:app/navbar.dart';
 import 'package:app/service_api.dart';
@@ -218,6 +219,17 @@ Future<void> loadHomePets() async {
 
                   /* Aqui vão os cards dos animais puxados da api */
                   
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 1, 
+                    width: MediaQuery.of(context).size.width * 2,
+                    child: ListView.builder(
+                      itemCount: homePets.length,
+                      itemBuilder: (context, index) {
+                        return CardPet(pet: homePets[index]);
+                      },
+                    ),
+                  ),
+
 
                   Container(
                     padding: EdgeInsets.all(16),

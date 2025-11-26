@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 
 class Pets{
-  static const String dogApiKey = "SUA_CHAVE_DOG";
-  static const String catApiKey = "SUA_CHAVE_CAT";
+  static const String dogApiKey = "live_a3felFHs0wuZ7yvwJIS6Cw7UxUyI0mAxFrVUigpyi8Bm6sR5HH3tUegMo9bi4PAg";
+  static const String catApiKey = "live_pvwqPkabN0F0AFETU9KOlJmt1A6zCGRhcDvpWH6SshXUekYt6ZRk6RVKAvlOUiBj";
 
   static Future<List<CardModelo>> getDogs({int limit = 20}) async {
     final url = Uri.parse(
