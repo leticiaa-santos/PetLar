@@ -36,7 +36,8 @@ class Pets{
   static Future<List<CardModelo>> getAllPets() async {
     final dogs = await getDogs(limit: 20);
     final cats = await getCats(limit: 20);
-
-    return [...dogs, ...cats];
+    final all = [...dogs, ...cats];
+    all.shuffle();
+    return all;
   }
 }

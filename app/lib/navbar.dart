@@ -31,7 +31,7 @@ class _NavBarState extends State<NavBar> {
 
   List<Widget> screens = [
     Home(),
-    Pets(),
+    PetsPage(),
     Favoritos(),
   ];
 

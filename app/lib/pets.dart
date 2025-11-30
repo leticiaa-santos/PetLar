@@ -1,13 +1,55 @@
+import 'package:app/card.dart';
+import 'package:app/modeloCard.dart';
+import 'package:app/service_api.dart';
 import 'package:flutter/material.dart';
 
-class Pets extends StatefulWidget {
-  const Pets({super.key});
+class PetsPage extends StatefulWidget {
+  const PetsPage({super.key});
 
   @override
-  State<Pets> createState() => _PetsState();
+  State<PetsPage> createState() => _PetsPageState();
 }
 
-class _PetsState extends State<Pets> {
+class _PetsPageState extends State<PetsPage> {
+
+  List<CardModelo> allPets = [];
+  List<CardModelo> filtroPets = [];
+
+  String filtroAtual = "todos";
+
+  @override
+  void initState() {
+    super.initState();
+    loadPets();
+  }
+
+  Future<void> loadPets() async {
+    final pets = await Pets.getAllPets(); // sua função já existente
+    setState(() {
+      allPets = pets;
+      filtroPets = pets;
+    });
+  }
+
+  void aplicarFiltro(String filtro) {
+    setState(() {
+      filtroAtual = filtro;
+
+      if (filtro == "todos") {
+        filtroPets = allPets;
+      } else if (filtro == "gatos") {
+        filtroPets = allPets.where((p) => p.type == "Gato").toList();
+      } else if (filtro == "caes") {
+        filtroPets = allPets.where((p) => p.type == "Cachorro").toList();
+      }
+    });
+  }
+
+
+
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +97,9 @@ class _PetsState extends State<Pets> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: (){},
+                ElevatedButton(onPressed: (){
+                  aplicarFiltro("todos");
+                },
 
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -72,7 +116,9 @@ class _PetsState extends State<Pets> {
                 ),
                 child: Text("Todos")),
 
-                ElevatedButton(onPressed: (){},
+                ElevatedButton(onPressed: (){
+                  aplicarFiltro("gatos");
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10), // Raio desejado
@@ -87,7 +133,9 @@ class _PetsState extends State<Pets> {
                 ),
                 child: Text("Gatos")),
 
-                ElevatedButton(onPressed: (){},
+                ElevatedButton(onPressed: (){
+                  aplicarFiltro("caes");
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10), // Raio desejado
@@ -103,10 +151,38 @@ class _PetsState extends State<Pets> {
                 child: Text("Cães")),
                 
                 
-          
-                
               ],
             ),
+
+            SizedBox(height: 30),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth;
+
+                int crossAxisCount = width > 650 ? 3 : 2;
+                double aspectRatio = (width / crossAxisCount) / 260;
+
+                return GridView.builder(
+                  itemCount: filtroPets.length, // usa pets filtrados
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(bottom: 10),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: aspectRatio,
+                  ),
+                  itemBuilder: (context, index) {
+                    return CardPet(pet: filtroPets[index]);
+                  },
+                );
+              },
+            ),
+          ),
 
           ]
         )

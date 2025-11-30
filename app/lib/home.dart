@@ -4,7 +4,6 @@ import 'package:app/navbar.dart';
 import 'package:app/service_api.dart';
 import 'package:flutter/material.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -13,21 +12,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   List<CardModelo> homePets = [];
 
-@override
-void initState() {
-  super.initState();
-  loadHomePets();
-}
+  @override
+  void initState() {
+    super.initState();
+    loadHomePets();
+  }
 
-Future<void> loadHomePets() async {
-  final all = await Pets.getAllPets();
-  setState(() {
-    homePets = all.take(6).toList(); // só alguns
-  });
-}
+  Future<void> loadHomePets() async {
+    final all = await Pets.getAllPets();
+    setState(() {
+      homePets = all.take(10).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ Future<void> loadHomePets() async {
                             blurRadius: 12,
                             offset: Offset(0, 4),
                           )
-                        ]
+                        ],
                       ),
                       child: Image.asset("assets/image/logo.png", fit: BoxFit.contain),
                     ),
@@ -83,10 +81,10 @@ Future<void> loadHomePets() async {
                     "Conectando corações a patinhas",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0XFFeef5ff),  
+                      color: Color(0XFFeef5ff),
                     ),
                   ),
-                ]
+                ],
               ),
             ),
 
@@ -112,7 +110,6 @@ Future<void> loadHomePets() async {
                     "O PetLar é mais do que um app de adoção – é uma missão de amor! Ajudamos cães e gatos a encontrarem lares cheios de carinho e famílias a ganharem companheiros fiéis. Cada adoção é uma história de esperança!",
                     style: TextStyle(
                       fontSize: 16,
-                      
                       color: Color(0XFF3E5674),
                     ),
                   ),
@@ -131,15 +128,17 @@ Future<void> loadHomePets() async {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.favorite, color: Color(0xff3E5674), size: 40,),
-                            Text("500+", style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff3E5674),
-                              fontSize: 18,
+                            Icon(Icons.favorite, color: Color(0xff3E5674), size: 40),
+                            Text(
+                              "500+",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff3E5674),
+                                fontSize: 18,
                               ),
                             ),
-                            Text("Adoções", style: TextStyle(color: Color(0xff3E5674)),)
-                          ]
+                            Text("Adoções", style: TextStyle(color: Color(0xff3E5674))),
+                          ],
                         ),
                       ),
                       Container(
@@ -151,15 +150,17 @@ Future<void> loadHomePets() async {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.groups_2, color: Color(0xff3E5674), size: 40,),
-                            Text("1000+", style: TextStyle(
-                              color: Color(0xff3E5674),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                            Icon(Icons.groups_2, color: Color(0xff3E5674), size: 40),
+                            Text(
+                              "1000+",
+                              style: TextStyle(
+                                color: Color(0xff3E5674),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-                            Text("Famílias", style: TextStyle(color: Color(0xff3E5674)),)
-                          ]
+                            Text("Famílias", style: TextStyle(color: Color(0xff3E5674))),
+                          ],
                         ),
                       ),
                       Container(
@@ -171,17 +172,19 @@ Future<void> loadHomePets() async {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.home_filled, color: Color(0xff3E5674), size: 40,),
-                            Text("50+", style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Color(0xff3E5674),
+                            Icon(Icons.home_filled, color: Color(0xff3E5674), size: 40),
+                            Text(
+                              "50+",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Color(0xff3E5674),
                               ),
                             ),
-                            Text("Parceiros", style: TextStyle(color: Color(0xff3E5674)),)
-                          ]
+                            Text("Parceiros", style: TextStyle(color: Color(0xff3E5674))),
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   ),
 
@@ -199,42 +202,56 @@ Future<void> loadHomePets() async {
                         ),
                       ),
 
-                      ElevatedButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
-                      }, 
-
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xfffefefe),
-                        foregroundColor: Color(0xff3E5674),
-                        shadowColor: Colors.transparent,
-                      ),
-                        child: Text(
-                          "Ver todos"
-                        ), 
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavBar(initialIndex: 1),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xfffefefe),
+                          foregroundColor: Color(0xff3E5674),
+                          shadowColor: Colors.transparent,
+                        ),
+                        child: Text("Ver todos"),
                       ),
                     ],
                   ),
 
                   SizedBox(height: 20),
 
-                  /* Aqui vão os cards dos animais puxados da api */
-                  
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 1, 
-                    width: MediaQuery.of(context).size.width * 2,
-                    child: ListView.builder(
-                      itemCount: homePets.length,
-                      itemBuilder: (context, index) {
-                        return CardPet(pet: homePets[index]);
-                      },
-                    ),
-                  ),
+                  // Card de pets
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final width = constraints.maxWidth;
 
+                      int crossAxisCount = width > 650 ? 3 : 2;
+                      double aspectRatio = (width / crossAxisCount) / 260;
+
+                      return GridView.builder(
+                        itemCount: homePets.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.only(bottom: 10),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: aspectRatio,
+                        ),
+                        itemBuilder: (context, index) {
+                          return CardPet(pet: homePets[index]);
+                        },
+                      );
+                    },
+                  ),
 
                   Container(
                     padding: EdgeInsets.all(16),
                     margin: EdgeInsets.all(20),
-                    
                     width: MediaQuery.of(context).size.width * 0.85,
                     decoration: BoxDecoration(
                       color: Color(0xff3E5674),
@@ -253,32 +270,33 @@ Future<void> loadHomePets() async {
                         ),
 
                         SizedBox(height: 20),
-                        
+
                         Text(
                           "Navegue por nossos pets disponíveis e encontre seu novo melhor amigo!",
-                          style: TextStyle(
-                            color: Color(0xfffafafa)
-                          ),
+                          style: TextStyle(color: Color(0xfffafafa)),
                         ),
-                        
+
                         SizedBox(height: 20),
-                        
-                        ElevatedButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder:(context) => NavBar(initialIndex: 1),));
-                        
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xfffefefe),
-                        foregroundColor: Color(0xff3E5674),
-                        minimumSize: Size(600, 40)
-                      ),
-                        child: Text(
-                          "Explorar pets"
-                        ), 
-                      ),
+
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NavBar(initialIndex: 1),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xfffefefe),
+                            foregroundColor: Color(0xff3E5674),
+                            minimumSize: Size(600, 40),
+                          ),
+                          child: Text("Explorar pets"),
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
