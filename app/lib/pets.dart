@@ -17,6 +17,8 @@ class _PetsPageState extends State<PetsPage> {
 
   String filtroAtual = "todos";
 
+  bool carregando = true;
+
   @override
   void initState() {
     super.initState();
@@ -24,12 +26,19 @@ class _PetsPageState extends State<PetsPage> {
   }
 
   Future<void> loadPets() async {
-    final pets = await Pets.getAllPets(); // sua função já existente
+    setState(() {
+      carregando = true;
+    });
+
+    final pets = await Pets.getAllPets();
+
     setState(() {
       allPets = pets;
       filtroPets = pets;
+      carregando = false;
     });
   }
+
 
   void aplicarFiltro(String filtro) {
     setState(() {
@@ -109,8 +118,8 @@ class _PetsPageState extends State<PetsPage> {
                       width: 0.5,          // Espessura da borda
                     ),
                   ),
-                  backgroundColor: Color(0xfffefefe),
-                  foregroundColor: Color(0xff3E5674),
+                  backgroundColor: filtroAtual == "todos" ? Color(0xff3E5674) : Color(0xfffefefe),
+                  foregroundColor: filtroAtual == "todos" ? Colors.white : Color(0xff3E5674),
                   shadowColor: Colors.transparent,
                   
                 ),
@@ -127,8 +136,8 @@ class _PetsPageState extends State<PetsPage> {
                       width: 0.5,          // Espessura da borda
                     ),
                   ),
-                  backgroundColor: Color(0xfffefefe),
-                  foregroundColor: Color(0xff3E5674),
+                  backgroundColor: filtroAtual == "gatos" ? Color(0xff3E5674) : Color(0xfffefefe),
+                  foregroundColor: filtroAtual == "gatos" ? Colors.white : Color(0xff3E5674),
                   shadowColor: Colors.transparent,
                 ),
                 child: Text("Gatos")),
@@ -144,8 +153,8 @@ class _PetsPageState extends State<PetsPage> {
                       width: 0.5,          // Espessura da borda
                     ),
                   ),
-                  backgroundColor: Color(0xfffefefe),
-                  foregroundColor: Color(0xff3E5674),
+                  backgroundColor: filtroAtual == "caes" ? Color(0xff3E5674) : Color(0xfffefefe),
+                  foregroundColor: filtroAtual == "caes" ? Colors.white : Color(0xff3E5674),
                   shadowColor: Colors.transparent,
                 ),
                 child: Text("Cães")),
@@ -154,7 +163,18 @@ class _PetsPageState extends State<PetsPage> {
               ],
             ),
 
-            SizedBox(height: 30),
+          SizedBox(height: 30),
+
+          if (carregando)
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xff3E5674),
+                ),
+              ),
+            )
+          else
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

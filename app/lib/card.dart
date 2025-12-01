@@ -57,7 +57,7 @@ class _CardPetState extends State<CardPet> {
               topRight: Radius.circular(16),
             ),
             child: AspectRatio(
-              aspectRatio: 16 / 12,
+              aspectRatio: 16 / 10,
               child: Image.network(
                 widget.pet.image,
                 fit: BoxFit.fill,

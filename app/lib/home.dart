@@ -14,6 +14,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<CardModelo> homePets = [];
 
+  bool carregando = true;
+
   @override
   void initState() {
     super.initState();
@@ -21,15 +23,22 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> loadHomePets() async {
+    setState(() {
+      carregando = true;
+    });
+
     final all = await Pets.getAllPets();
+    
     setState(() {
       homePets = all.take(10).toList();
+      carregando = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    Scaffold(
       backgroundColor: Color(0xfffefefe),
       body: SingleChildScrollView(
         child: Column(
@@ -224,6 +233,17 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 20),
 
                   // Card de pets
+                  if (carregando)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xff3E5674),
+                        ),
+                      ),
+                    )
+                  else
+                  
                   LayoutBuilder(
                     builder: (context, constraints) {
                       final width = constraints.maxWidth;
