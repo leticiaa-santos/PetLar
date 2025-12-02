@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => NavBar(),
+        '/profile': (context) => NavBar(),
 
       },
     );

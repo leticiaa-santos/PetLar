@@ -31,7 +31,7 @@ class Favoritos extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.favorite, color: Colors.white),
+                    Icon(Icons.favorite, color: Colors.white, size: 40),
                     SizedBox(width: 10),
                     Text(
                       "Meus Favoritos",
@@ -84,9 +84,9 @@ class Favoritos extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 0.75,
+                    mainAxisSpacing: 14,
+                    crossAxisSpacing: 14,
+                    childAspectRatio: 0.70,
                   ),
                   itemCount: docs.length,
                   itemBuilder: (context, index) {

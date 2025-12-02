@@ -197,7 +197,12 @@ class _PetsPageState extends State<PetsPage> {
                     childAspectRatio: aspectRatio,
                   ),
                   itemBuilder: (context, index) {
-                    return CardPet(pet: filtroPets[index]);
+                    return CardPet(
+                      key: ValueKey(filtroPets[index].id), // chave única por card
+                      pet: filtroPets[index],             // envia o item correto
+                    );
+
+
                   },
                 );
               },

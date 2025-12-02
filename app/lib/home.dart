@@ -263,7 +263,12 @@ class _HomeState extends State<Home> {
                           childAspectRatio: aspectRatio,
                         ),
                         itemBuilder: (context, index) {
-                          return CardPet(pet: homePets[index]);
+                          return CardPet(
+                          key: ValueKey(homePets[index].id), 
+                          pet: homePets[index],             
+                        );
+
+
                         },
                       );
                     },

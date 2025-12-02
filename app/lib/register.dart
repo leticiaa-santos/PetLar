@@ -36,9 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
           "createdAt": FieldValue.serverTimestamp(),
         });
 
-        await userDoc.collection("favoritos").doc("init").set({
-          "created": true,
-        });
+        
       }
 
       Navigator.pushReplacementNamed(context, "/home");

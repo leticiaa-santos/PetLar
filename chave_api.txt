@@ -8,3 +8,9 @@ live_pvwqPkabN0F0AFETU9KOlJmt1A6zCGRhcDvpWH6SshXUekYt6ZRk6RVKAvlOUiBj
 
 
 77808
+
+apk:
+
+flutter build apk
+
+build/app/outputs/flutter-apk/app-release.apk
