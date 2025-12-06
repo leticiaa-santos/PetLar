@@ -258,9 +258,9 @@ class _HomeState extends State<Home> {
                         padding: EdgeInsets.only(bottom: 10),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: aspectRatio,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.70,
                         ),
                         itemBuilder: (context, index) {
                           return CardPet(

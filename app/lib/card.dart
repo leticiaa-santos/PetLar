@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/detalhesPet.dart';
 import 'package:app/modeloCard.dart';
 import 'package:app/service_favorite.dart';
 
@@ -20,45 +21,43 @@ class _CardPetState extends State<CardPet> {
     _loadFavorite();
   }
 
-  /// Quando o Flutter troca o widget reaproveitando o card,
-  /// garantimos que o favorito seja recarregado corretamente
-  @override
-  void didUpdateWidget(CardPet oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.pet.id != widget.pet.id) {
-      _loadFavorite(); // recarrega favorito do item correto
-    }
-  }
-
-  /// Verifica no Firestore se o pet está favoritado
-  void _loadFavorite() async {
+  Future<void> _loadFavorite() async {
     bool fav = await Favorite.isFavorited(widget.pet.id);
-    if (mounted) {
-      setState(() => isFav = fav);
-    }
+    if (mounted) setState(() => isFav = fav);
   }
 
-  /// Alterna o favorito e confirma o estado real no banco
-  void _toggleFavorite() async {
+  Future<void> _toggleFavorite() async {
     await Favorite.toggleFavorite(widget.pet.id, widget.pet.toMap());
-
-    // recarrega do banco para não haver erro de estado reciclado
-    bool fav = await Favorite.isFavorited(widget.pet.id);
-
-    if (mounted) {
-      setState(() => isFav = fav);
-    }
+    _loadFavorite();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double width = constraints.maxWidth;
+    return LayoutBuilder(builder: (context, constraints) {
+      double w = constraints.maxWidth;
 
-        return Container(
-          margin: EdgeInsets.only(bottom: 16),
+      // --------- AJUSTES RESPONSIVOS ---------
+      double fontNormal = w < 170 ? 11 : 13;
+      double fontTitle = w < 170 ? 13 : 16;
+      double iconSize = w < 170 ? 18 : 22;
+      double padding = w < 170 ? 8 : 12;
+
+      return GestureDetector(
+        onTap: () async {
+          final updated = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetalhesPetPage(pet: widget.pet),
+            ),
+          );
+
+          if (updated == true) {
+            _loadFavorite();
+          }
+        },
+
+        // ---------- CARD ----------
+        child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
@@ -74,34 +73,33 @@ class _CardPetState extends State<CardPet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ---------------- IMAGEM (responsiva) ----------------
+
+              // ---------- IMAGEM ----------
               ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 child: AspectRatio(
-                  aspectRatio: 16 / 10,
+                  aspectRatio: 1.25, // <<< AQUI, perfeito para Grid 2 colunas
                   child: Image.network(
                     widget.pet.image,
-                    fit: BoxFit.fill, // ← evita distorção
-                    errorBuilder: (ctx, err, _) => Container(
+                    fit: BoxFit.fill,
+                    errorBuilder: (_, __, ___) => Container(
                       color: Colors.grey[200],
+                      alignment: Alignment.center,
                       child: Icon(Icons.image_not_supported,
-                          color: Colors.grey, size: 40),
+                          size: 40, color: Colors.grey),
                     ),
                   ),
                 ),
               ),
 
-              // ------------- INFORMAÇÕES ----------------
+              // ---------- CONTEÚDO ----------
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding: EdgeInsets.all(padding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    // Nome + coração
+                    // ------ Nome + Coração ------
                     Row(
                       children: [
                         Expanded(
@@ -109,7 +107,7 @@ class _CardPetState extends State<CardPet> {
                             widget.pet.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: width < 330 ? 14 : 16,
+                              fontSize: fontTitle,
                               color: Color(0xff3E5674),
                             ),
                             maxLines: 1,
@@ -121,8 +119,8 @@ class _CardPetState extends State<CardPet> {
                           onTap: _toggleFavorite,
                           child: Icon(
                             isFav ? Icons.favorite : Icons.favorite_border,
-                            size: width < 330 ? 22 : 24,
                             color: isFav ? Colors.red : Colors.grey,
+                            size: iconSize,
                           ),
                         ),
                       ],
@@ -130,32 +128,35 @@ class _CardPetState extends State<CardPet> {
 
                     SizedBox(height: 6),
 
-                    _buildInfoRow(Icons.location_on, widget.pet.origin, width),
-                    SizedBox(height: 6),
-                    _buildInfoRow(Icons.pets, widget.pet.lifeSpan, width),
+                    // ------ Raça ------
+                    _info(Icons.badge, "Raça: ${widget.pet.breed}", fontNormal),
+                    SizedBox(height: 4),
+
+                    // ------ Origem ------
+                    _info(Icons.location_on, "Origem: ${widget.pet.origin}", fontNormal),
+                    SizedBox(height: 4),
+
+                    // ------ Vida ------
+                    _info(Icons.pets, "Vida: ${widget.pet.lifeSpan}", fontNormal),
                   ],
                 ),
               ),
             ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
-  /// Reaproveita o mesmo layout para origem e lifespan
-  Widget _buildInfoRow(IconData icon, String text, double width) {
+  Widget _info(IconData icon, String text, double size) {
     return Row(
       children: [
-        Icon(icon, size: width < 330 ? 12 : 14, color: Colors.grey[700]),
+        Icon(icon, size: size + 1, color: Colors.grey[700]),
         SizedBox(width: 4),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: width < 330 ? 11 : 13,
-              color: Colors.grey[700],
-            ),
+            style: TextStyle(fontSize: size, color: Colors.grey[700]),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
